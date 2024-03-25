@@ -25,12 +25,6 @@ from imblearn.over_sampling import SMOTE #,ADASYN
 from collections import Counter
 import numpy as np
 
-'''
-不同模型在一个project表现好
-20个project上也consistent
-某个模型表现好无意义，专注点在reusable clone
-'''
-
 
 def load_data(project, lifecycle_threshold, prevalence_threshold, quality_threshold):
     # load project data
