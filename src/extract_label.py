@@ -26,6 +26,7 @@ print(config_global.TOOLS_PATH)
 # from tools.pyszz_v2 import conf as szz_conf
 
 
+# take care of buggy code that is identified by the commit messages which provide bug information.
 class Buggy_commits_extractor:
 
     def __init__(self, project):
@@ -153,6 +154,7 @@ class Buggy_commits_extractor:
         return None
 
 
+    # extract bugfix commits either by github issues or bugzilla platform
     def extract_bugfix_commits_by_issues_test(self, project, issue_config_dict, git_repo):
         bug_commit_mapping = dict()
     
@@ -160,14 +162,14 @@ class Buggy_commits_extractor:
         df_commit_logs = pd.DataFrame(columns=['commit_id', 'email', 'commit_timestamp', 'commit_msg'])
         commits_log_path = os.path.join(config_global.COMMIT_LOG_PATH, "%s_commits.log" % project)
         commits_log_list = list()  # pd.DataFrame()
-        with open(commits_log_path, 'r', encoding='utf-8') as fp:
+        with open(commits_log_path, 'r', encoding='utf-8') as fp: # be careful of the encoding
             reader = fp.readlines()
             for line in reader:
                 commits_log_list.append(line.split(',', 3))
     
         commits_log_df = pd.DataFrame(commits_log_list, columns=['commit_id', 'email', 'timestamp', 'commit_msg'])
         commits_log_df.sort_values('timestamp', inplace=True)
-        #commits_log_df = commits_log_df[5000:]
+        # commits_log_df = commits_log_df[5000:]
         print(commits_log_df.shape)
         all_bugs = set()
     
